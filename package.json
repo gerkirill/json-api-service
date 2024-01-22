@@ -1,6 +1,6 @@
 {
   "name": "@gerkirill/json-api-service",
-  "version": "9.1.0",
+  "version": "1.0.0",
   "description": "A library to simplify web API service creation, based on routing-controllers.",
   "author": "Kyrylo Gerasymenko <k.gerasimenko@gmail.com>",
   "homepage": "",
