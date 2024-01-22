@@ -1,4 +1,4 @@
-# `api-service`
+# JSON API Service
 
 A library to simplify web API service creation. It relies on express and [routing-controllers](https://github.com/typestack/routing-controllers#example-of-usage).
 
@@ -13,16 +13,16 @@ The library reduces a boilerplate to spin-up a rest API service. Also this libra
 Install library and required peer dependencies:
 
 ```bash
-npm i @gerkirill/api-service routing-controllers@^0.9.0 class-transformer@^0.3.1 class-validator@^0.12.2 
-npm i -D @types/node
+npm i @gerkirill/json-api-service routing-controllers@^0.10.4 class-transformer@^0.5.1 class-validator@^0.14.1 reflect-metadata
+npm i -D @types/node typescript
 ```
 
-Note: versions of class-transformer and class-validator are defined as peer dependencies of the routing-controllers^0.9.0.
+Note: versions of class-transformer and class-validator are defined as peer dependencies of the routing-controllers^0.10.4.
 
 Usage example:
 
 ```typescript
-import { createApplication } from '@gerkirill/api-service';
+import { createApplication } from '@gerkirill/json-api-service';
 import { Get, JsonController } from 'routing-controllers';
 
 const BASE_PATH = '/api';
@@ -58,7 +58,7 @@ Also, make sure the following `compilerOptions` are set in your `tsconfig.json`:
 
 *createApplication* accepts configuration object with the following fields:
 
-- *routePrefix* _(optional, string)_ A url fragment to be added to all controllers, e.g.: `/api/v1/alert`.
+- *routePrefix* _(optional, string)_ A url fragment to be added to all controllers, e.g.: `/api/v1`.
 - *controllers* _(array)_ Array of controller classes annotated with `@Controller()` or `@JsonController()`.
 - *middlewares* _(optional, array)_ Array of [middleware](https://github.com/typestack/routing-controllers#using-middlewares) classes to use globally.
 - *interceptors* _(optional, array)_ Array of [interceptors](https://github.com/typestack/routing-controllers#using-interceptors) to use globally, annotated with `@Interceptor()`.

@@ -1,17 +1,10 @@
 import express, { Application, Request } from 'express';
-import { useExpressServer } from 'routing-controllers';
+import { RoutingControllersOptions, useExpressServer } from 'routing-controllers';
 import { HttpErrorHandler, HttpNotFoundHandler } from '.';
 import { ERROR_EVENT } from './constants';
 import { setupOptionsAndCors } from './cors';
 
-interface CreateApplicationParams {
-  routePrefix?: string;
-  /* eslint-disable-next-line  @typescript-eslint/ban-types */
-  controllers?: Function[];
-  /* eslint-disable-next-line  @typescript-eslint/ban-types */
-  middlewares?: Function[];
-  /* eslint-disable-next-line  @typescript-eslint/ban-types */
-  interceptors?: Function[];
+interface CreateApplicationParams extends RoutingControllersOptions {
   earlyBootstrapFn?: (app: Application) => void;
   errorHandler?: (err: Error, errorContext?: { req: Request }) => void;
 }
@@ -24,10 +17,7 @@ export function createApplication(params: CreateApplicationParams): Application 
   params.earlyBootstrapFn && params.earlyBootstrapFn(app);
   // setup routing-controllers
   useExpressServer(app, {
-    routePrefix: params.routePrefix,
-    controllers: params.controllers,
-    middlewares: params.middlewares,
-    interceptors: params.interceptors,
+    ...params, // TODO: contains 2 extra parameters (earlyBootstrapFn and errorHandler), may cause issues if useExpressServer defines parameters with the same names.
     defaultErrorHandler: false,
   });
   params.errorHandler && app.on(ERROR_EVENT, (...args) => {
